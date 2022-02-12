@@ -66,6 +66,36 @@
 
         const c5 = a5.map((n)=>n+10); // 데이터를 가공해 리턴
         console.log(c5) // [11, 12, 13]
+
+        console.log("6. ================== 수정하기");
+
+        const updateUserDto = {
+            id: 2, name: "홍길동"
+        }
+        const a6 = {...updateUserDto}; //  a6를 흩뿌리기
+        console.log(a6);
+        const b6 = {...updateUserDto, name:"임꺽정"};
+        console.log(b6);
+        
+        const updateData = {name:"임꺽정"}
+        // 같은 키값이 있다면 뒤에 오는 오브젝트의 값으로 덮어씌워 진다.
+        const c6 = {...updateUserDto, ...updateData}; 
+        console.log(c6);
+
+        const users = [
+            {id:1, name:"하나", phone:"1111"},
+            {id:2, name:"둘", phone:"2222"},
+            {id:3, name:"셋", phone:"3333"},
+        ];
+
+        // 아래와 같이 해서는 최적화가 불가능하다. 값만 변경될 뿐이다.
+        // users[1].name = updateUserDto.name;
+        console.log(users);
+
+        const newUsers = users.map(u => u);// const newUser = {...users};
+        console.log("newUsers", newUsers);
+        const newUsers2 = users.map(user => user.id === updateUserDto.id ? {...user, ...updateUserDto} : user );
+        console.log(newUsers2)
     </script>
 </body>
 </html>
