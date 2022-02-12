@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Sub = () => {
+let num = 10;
 
-    // rebuild 수행의 분기점을 지정할 수 있는 함수가 존재
-    // 해당 컴포넌트의 상태값 변경이 없다면, 리빌드를 막을 수 있다. 
+const Sub = () => {
     return (
         <div>
-            <h1>Sub 입니다.</h1>
+            
         </div>
     );
 };
 
-export default Sub;
+export { num }; // default export 외의 function이나 obj에는 중괄호 사용
+export default Sub; // default export는 오직 1개만
