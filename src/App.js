@@ -1,32 +1,26 @@
 import { createRef, useRef, useState } from "react";
 import "./App.css";
+import styled from "styled-components";
+
+// 정적인 데이터이므로, 한번만 로딩되도록 함수 밖에서 선언한다.(비추천)
+// 혹은 css 파일을 활용한다.(권장)
+const myStyle = {
+  backgroundColor: "red",
+};
+
+// 따로 js 파일을 만들어서 styled 값들을 관리할 수도 있다.
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
 
 function App() {
-  const myRef = useRef(null);
-  const [list, setList] = useState([
-    { id: 1, name: "홍길동" },
-    { id: 2, name: "임꺽정" },
-  ]);
-  const myRefs = Array.from({ length: list.length }).map(() => createRef()); // list의 길이에 따라 동적으로 ref 배열 생성
-
   return (
     <div>
-      <button
-        onClick={() => {
-          console.log(myRef);
-          console.log(myRef.current);
-          //myRef.current.style.backgroundColor = "red";
-          myRefs[0].current.style.backgroundColor = "red"; // 홍길동 색 변경
-        }}
-      >
-        색 변경
-      </button>
-      <div ref={myRef}>박스</div>
-      <div>
-        {list.map((user, index) => (
-          <h1 ref={myRefs[index]}>{user.name}</h1>
-        ))}
-      </div>
+      <div style={myStyle}>안녕</div>
+      <div className="box-style">헬로</div>
+      <Title>안녕</Title>
     </div>
   );
 }
