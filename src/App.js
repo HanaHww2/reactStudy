@@ -1,42 +1,31 @@
-import { useMemo, useState } from "react";
+import { createRef, useRef, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [list, setList] = useState([1, 2, 3, 4]);
-  const [str, setStr] = useState("합계");
-
-  const getAddResult = () => {
-    let sum = 0;
-    list.forEach((i) => (sum += i));
-    console.log("sum 함수 실행됨:", sum);
-    return sum;
-  };
-
-  const addResult = useMemo(() => getAddResult(), [list]); // getAddResult() 함수를 기억해두고, list가 변경되는 경우 실행한다.
+  const myRef = useRef(null);
+  const [list, setList] = useState([
+    { id: 1, name: "홍길동" },
+    { id: 2, name: "임꺽정" },
+  ]);
+  const myRefs = Array.from({ length: list.length }).map(() => createRef()); // list의 길이에 따라 동적으로 ref 배열 생성
 
   return (
     <div>
       <button
         onClick={() => {
-          setStr("안녕"); // 상태값 변경시 다른 요소들도 함께 re-rendering이 된다. -> useMemo로 최적화
+          console.log(myRef);
+          console.log(myRef.current);
+          //myRef.current.style.backgroundColor = "red";
+          myRefs[0].current.style.backgroundColor = "red"; // 홍길동 색 변경
         }}
       >
-        문자 변경
+        색 변경
       </button>
-      <button
-        onClick={() => {
-          setList([...list, 10]);
-        }}
-      >
-        리스트 값 추가
-      </button>
+      <div ref={myRef}>박스</div>
       <div>
-        {list.map((i) => (
-          <h1>{i}</h1>
+        {list.map((user, index) => (
+          <h1 ref={myRefs[index]}>{user.name}</h1>
         ))}
-      </div>
-      <div>
-        {str} : {addResult}
       </div>
     </div>
   );
